@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int coinchange(int coins[],int numcoins,int amount)
+{
+    int dp[numcoins][amount+1];
+    for(int i=0;i<numcoins;i++)
+    {
+        dp[i][0] =1;
+    }
+    for(int j=1; j<=amount;j++)
+    {
+        dp[0][j] =(j%coins[0]==0)? 1:0;
+    }
+    for(int i=1;i<numcoins;i++)
+    {
+         for(int j=1; j<=amount;j++)
+        {   
+            dp[i][j] = dp[i-1][j];
+            if(coins[i] <= j)
+            {
+                dp[i][j] += dp[i][j- coins[i]];
+            }
+        }
+    }
+    return dp[numcoins-1][amount];
+}
+int main()
+{
+    int coins[] = {1,3,5};
+    int numcoins = 3;
+    int amount = 10;
+    cout << "Numbers of ways to make change: "<<coinchange(coins,numcoins,amount)<<endl;
+}
