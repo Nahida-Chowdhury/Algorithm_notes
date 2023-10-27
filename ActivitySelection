@@ -1,0 +1,35 @@
+#include<bits/stdc++.h> 
+using namespace std;
+
+struct Activity
+{
+    int start,en;
+};
+
+bool cmp(Activity act1,Activity act2)
+{
+    return (act1.en <act2.en);
+}
+
+void maxActivity(Activity act[],int n)
+{
+    sort(act,act+n,cmp);
+    cout<<"Selected Activities: ";
+    int i=0;
+    cout<<"("<<act[i].start<<","<<act[i].en<<")";
+    for(int j=1;j<n;j++)
+    {
+        if(act[j].start>=act[i].en)
+        {
+            cout<<"("<<act[j].start<<","<<act[j].en<<")";
+            i=j;
+        }
+    }
+}
+int main()
+{
+    Activity actArr[] = {{4,7},{6,9},{1,3},{2,4}};
+    int n=sizeof(actArr)/sizeof(actArr[0]);
+    maxActivity(actArr,n);
+    return 0;
+}
